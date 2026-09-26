@@ -85,7 +85,7 @@ export function createServer({ dataFilePath } = {}) {
 
       if (req.url === '/api/contact' && req.method === 'POST') {
         const body = await readBody(req);
-        const { status, body: respBody } = handleContact(body, repository);
+                const { status, body: respBody } = await handleContact(body, repository);
         return sendJson(res, status, respBody);
       }
 
