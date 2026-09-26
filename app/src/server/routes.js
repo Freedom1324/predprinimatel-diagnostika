@@ -14,6 +14,9 @@ import { normalizeScores } from '../engine/normalization.js';
 import { determineProfiles } from '../engine/profileDetection.js';
 import { generateResult } from '../engine/resultGenerator.js';
 import { buildAnalyticsRecord } from '../analytics/analyticsFields.js';
+import { sendContactNotification } from '../notifications/emailNotifier.js';
+
+
 
 /**
  * Отдаём фронтенду вопросы без единого числа баллов.
@@ -113,7 +116,7 @@ export function handleSubmit(body, repository) {
   };
 }
 
-export function handleContact(body, repository) {
+export async function handleContact(body, repository) {
   const { respondent_id, name, contact } = body;
   if (!respondent_id || !name || !contact) {
     return { status: 400, body: { error: 'respondent_id, name и contact обязательны' } };
@@ -122,5 +125,6 @@ export function handleContact(body, repository) {
   if (!updated) {
     return { status: 404, body: { error: 'Респондент не найден' } };
   }
+  await sendContactNotification({ name, contact, record: updated });
   return { status: 200, body: { ok: true } };
 }
