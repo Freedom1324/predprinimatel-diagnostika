@@ -1,0 +1,14 @@
+{
+  "name": "entrepreneur-diagnostic-mvp",
+  "version": "1.0.0",
+  "description": "Онлайн-диагностика предпринимателя — MVP",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node src/server/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
